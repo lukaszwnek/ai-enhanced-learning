@@ -3,20 +3,27 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { getEmbeddingForTerm } from "../../lib/openai";
 import { searchCourses } from "../../lib/database";
 
-export default function Page({ searchParams }) {
+export default async function Page({ searchParams }) {
   async function search(term) {
     "use server";
 
     const supabase = createServerComponentClient({ cookies });
     const embedding = await getEmbeddingForTerm(term);
     const results = await searchCourses({ supabase, embedding });
-
     return results;
   }
 
   if (searchParams.term) {
-    const results = search(searchParams.term);
-    return null;
+    const results = await search(searchParams.term);
+    return (
+      <ul>
+        {results.map((result) => (
+          <li key={result.id}>
+            {result.name}, value: {result.similarity}
+          </li>
+        ))}
+      </ul>
+    );
   } else {
     return (
       <form>
