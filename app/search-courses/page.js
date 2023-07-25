@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { getEmbeddingForTerm } from "../../lib/openai";
+import { getResults, getEmbeddingForTerm } from "../../lib/openai";
 import { searchCourses } from "../../lib/database";
 
 export default async function Page({ searchParams }) {
@@ -9,7 +9,8 @@ export default async function Page({ searchParams }) {
 
     const supabase = createServerComponentClient({ cookies });
     const embedding = await getEmbeddingForTerm(term);
-    const results = await searchCourses({ supabase, embedding });
+    const searchResults = await searchCourses({ supabase, embedding });
+    const results = await getResults({ term, searchResults });
     return results;
   }
 
@@ -17,10 +18,8 @@ export default async function Page({ searchParams }) {
     const results = await search(searchParams.term);
     return (
       <ul>
-        {results.map((result) => (
-          <li key={result.id}>
-            {result.name}, value: {result.similarity}
-          </li>
+        {results.map((result, index) => (
+          <li key={index}>{result}</li>
         ))}
       </ul>
     );
