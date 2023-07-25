@@ -10,7 +10,8 @@ export default async function Page({ searchParams }) {
     const supabase = createServerComponentClient({ cookies });
     const embedding = await getEmbeddingForTerm(term);
     const searchResults = await searchCourses({ supabase, embedding });
-    const results = await getResults({ term, searchResults });
+    const results =
+      searchResults.length > 0 ? await getResults({ term, searchResults }) : [];
     return results;
   }
 
@@ -19,7 +20,9 @@ export default async function Page({ searchParams }) {
     return (
       <ul>
         {results.map((result, index) => (
-          <li key={index}>{result}</li>
+          <li key={index}>
+            {result.name}, relevance: {result.relevance}
+          </li>
         ))}
       </ul>
     );
