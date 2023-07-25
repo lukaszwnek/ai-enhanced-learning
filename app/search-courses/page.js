@@ -1,31 +1,33 @@
-// import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-// import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-// import { getCourses } from "../../lib/northpass";
+import { cookies } from "next/headers";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { getEmbeddingForTerm } from "../../lib/openai";
-// import { indexCourses } from "../../lib/database";
+import { searchCourses } from "../../lib/database";
 
-export default function Page() {
-  async function action(data) {
+export default function Page({ searchParams }) {
+  async function search(term) {
     "use server";
 
-    const { term } = Object.fromEntries(data.entries());
-    const termEmbedding = await getEmbeddingForTerm(term);
+    const supabase = createServerComponentClient({ cookies });
+    const embedding = await getEmbeddingForTerm(term);
+    const results = await searchCourses({ supabase, embedding });
 
-    console.log(termEmbedding);
-
-    redirect("/");
+    return results;
   }
 
-  return (
-    <form action={action}>
-      <label className="label" htmlFor="term">
-        Search Term
-      </label>
-      <input className="input" id="term" name="term" type="text" />
-      <button className="btn btn-blue" type="submit">
-        Search Courses!
-      </button>
-    </form>
-  );
+  if (searchParams.term) {
+    const results = search(searchParams.term);
+    return null;
+  } else {
+    return (
+      <form>
+        <label className="label" htmlFor="term">
+          Search Term
+        </label>
+        <input className="input" id="term" name="term" type="text" />
+        <button className="btn btn-blue" type="submit">
+          Search Courses!
+        </button>
+      </form>
+    );
+  }
 }
