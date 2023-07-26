@@ -24,3 +24,34 @@ body {
 .label {
   @apply block text-gray-700 text-sm font-bold mb-2;
 }
+
+.courses-row {
+  @apply grid grid-cols-3 gap-4;
+}
+
+.course-card {
+  @apply shadow appearance-none border rounded w-full;
+}
+
+.course-content {
+  @apply flex h-24 w-full flex-col justify-around px-4;
+}
+
+.course-title {
+  color: #1b3e4f;
+  @apply text-xl font-bold;
+}
+
+.course-revelance {
+  @apply text-xs font-bold uppercase;
+}
+
+.page-header {
+  @apply flex w-full flex-row place-content-between mb-16;
+}
+
+.title {
+  color: #1b3e4f;
+  @apply text-xl font-bold;
+}
+
