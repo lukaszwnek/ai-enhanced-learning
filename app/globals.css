@@ -6,6 +6,10 @@ body {
   padding: 100px;
 }
 
+.container {
+  width: 500px;
+}
+
 .btn {
   cursor: pointer;
   @apply font-bold py-2 px-4 rounded;
@@ -66,4 +70,3 @@ body {
   display: flex;
   justify-content: center;
 }
- 

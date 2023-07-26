@@ -6,12 +6,17 @@ import { getEmbeddingsForCourses } from "../lib/openai";
 import { indexCourses } from "../lib/database";
 
 export default async function Index() {
-  const apiKey = cookies().get("apiKey").value;
+  const apiKey = cookies().get("apiKey")?.value;
 
   async function handleSettingApiKey(data) {
     "use server";
     const { apiKey } = Object.fromEntries(data);
     cookies().set("apiKey", apiKey);
+  }
+
+  async function handleLogout() {
+    "use server";
+    cookies().set("apiKey", null);
   }
 
   async function handleCourseIndexing() {
@@ -36,9 +41,14 @@ export default async function Index() {
               Index Courses
             </button>
           </form>
-          <a href="/search-courses" className="btn btn-blue">
+          <a href="/search-courses" className="btn btn-blue mr-4">
             Search Courses
           </a>
+          <form action={handleLogout}>
+            <button className="btn btn-blue" type="submit">
+              Log out
+            </button>
+          </form>
         </div>
       ) : (
         <form action={handleSettingApiKey}>
