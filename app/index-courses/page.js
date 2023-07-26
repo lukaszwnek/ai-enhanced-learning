@@ -19,14 +19,22 @@ export default function Page() {
   }
 
   return (
-    <form action={action}>
-      <label className="label" htmlFor="apiKey">
-        Api Key
-      </label>
-      <input className="input" id="apiKey" name="apiKey" type="text" />
-      <button className="btn btn-blue" type="submit">
-        Index Courses!
-      </button>
-    </form>
+  <div className="w-full">
+    <div className="page-header">
+      <div className="title">Index Courses</div>
+      <a href="/" className="btn btn-blue">
+        Go Back
+      </a>
+    </div>
+      <form action={action}>
+        <label className="label" htmlFor="apiKey">
+          Api Key
+        </label>
+        <input className="input" id="apiKey" name="apiKey" type="text" />
+        <button className="btn btn-blue" type="submit">
+          Index Courses!
+        </button>
+      </form>
+    </div>
   );
 }

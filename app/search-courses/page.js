@@ -38,6 +38,13 @@ export default async function Page({ searchParams }) {
     );
   } else {
     return (
+      <div className="w-full">
+				<div className="page-header">
+					<div className="title">Search Courses</div>
+					<a href="/" className="btn btn-blue">
+						Go Back
+					</a>
+				</div>
       <form>
         <label className="label" htmlFor="term">
           Search Term
@@ -46,7 +53,8 @@ export default async function Page({ searchParams }) {
         <button className="btn btn-blue" type="submit">
           Search Courses!
         </button>
-      </form>
+        </form>
+      </div>
     );
   }
 }
