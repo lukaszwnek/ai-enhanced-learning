@@ -46,8 +46,9 @@ body {
   @apply text-xl font-bold;
 }
 
-.course-revelance {
-  @apply text-xs font-bold uppercase;
+.course-desc {
+  @apply text-sm;
+  color: #486776;
 }
 
 .page-header {

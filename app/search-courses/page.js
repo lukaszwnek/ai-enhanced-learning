@@ -32,6 +32,7 @@ export default async function Page({ searchParams }) {
               <img src={result.image_url} />
               <div className="course-content">
                 <div className="course-title">{result.name}</div>
+                <div className="course-desc">{result.description}</div>
               </div>
             </li>
           ))}
