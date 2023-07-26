@@ -25,7 +25,7 @@ export default async function Page({ searchParams }) {
   if (searchParams.term) {
     const results = await search(searchParams.term);
     return (
-			<div>
+			<div className="w-full">
 				<div className="page-header">
 					<div className="title">Search Results</div>
 					<a href="/" className="btn btn-blue">
