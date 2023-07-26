@@ -55,3 +55,15 @@ body {
   @apply text-xl font-bold;
 }
 
+.homepage-title {
+  font-size: 90px;
+  color: #1b3e4f;
+  font-weight: 600;
+  margin-bottom: 60px;
+}
+
+.homepage-buttons-container {
+  display: flex;
+  justify-content: center;
+}
+ 
