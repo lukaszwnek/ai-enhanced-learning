@@ -14,16 +14,20 @@ export default async function Page({ searchParams }) {
     return results;
   }
 
+  const Header = ({ header, href }) => (
+    <div className="page-header">
+      <div className="title">{header}</div>
+      <a href={href} className="btn btn-blue">
+        Go Back
+      </a>
+    </div>
+  );
+
   if (searchParams.term) {
     const results = await search(searchParams.term);
     return (
-      <div className="w-full">
-        <div className="page-header">
-          <div className="title">Search Results</div>
-          <a href="/search-courses" className="btn btn-blue">
-            Go Back
-          </a>
-        </div>
+      <div>
+        <Header header="Search Results" href="/search-courses" />
         <ul className="courses-row">
           {results.map((result, index) => (
             <li key={index} className="course-card">
@@ -38,21 +42,16 @@ export default async function Page({ searchParams }) {
     );
   } else {
     return (
-      <div className="w-full">
-				<div className="page-header">
-					<div className="title">Search Courses</div>
-					<a href="/" className="btn btn-blue">
-						Go Back
-					</a>
-				</div>
-      <form>
-        <label className="label" htmlFor="term">
-          Search Term
-        </label>
-        <input className="input" id="term" name="term" type="text" />
-        <button className="btn btn-blue" type="submit">
-          Search Courses!
-        </button>
+      <div>
+        <Header header="Search Courses" href="/" />
+        <form>
+          <label className="label" htmlFor="term">
+            Search Term
+          </label>
+          <input className="input" id="term" name="term" type="text" />
+          <button className="btn btn-blue" type="submit">
+            Search Courses!
+          </button>
         </form>
       </div>
     );
